@@ -98,11 +98,6 @@
 	}
 	
 	class question1 extends page {
-		function get() {
-				
-			$this->content .= $this->homepage();
-			$this->content .= $this->question1();		
-		}
 		
 		function question1() {
 			echo $this->menu();
@@ -114,8 +109,11 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year FROM colleges JOIN enrollment_merge on colleges.id=enrollment_merge.id 
-								   ORDER BY enrollment_merge.enroll_total DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year 
+									FROM colleges JOIN enrollment_merge on colleges.id=enrollment_merge.id 
+								  	WHERE enrollment_merge.year=2010 AND 
+								  	enrollment_merge.enroll_total >= 100000 
+								  	ORDER BY enrollment_merge.enroll_total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -126,17 +124,28 @@
 			echo 'Total Enrollment: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Enrollment' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Enrollment' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['enroll_total'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year FROM colleges JOIN enrollment_merge on colleges.id=enrollment_merge.id 
-								  WHERE enrollment_merge.year=merge ORDER BY enrollment_merge.enroll_total DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year 
+									FROM colleges JOIN enrollment_merge on colleges.id=enrollment_merge.id 
+								  	WHERE enrollment_merge.year=2011 AND 
+								  	enrollment_merge.enroll_total >= 100000
+								  	ORDER BY enrollment_merge.enroll_total DESC LIMIT 10");
 			//$sth->execute();
 
 			//$results = $sth->fetchAll();
@@ -144,10 +153,18 @@
 			echo 'Total Enrollment: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Enrollment' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Enrollment' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['enroll_total'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -155,11 +172,6 @@
 	}
 	
 	class question2 extends page {
-		
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question2();
-		}
 		
 		function question2() {
 			echo $this->menu();
@@ -171,8 +183,11 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year FROM colleges JOIN finance on colleges.id=finance.id 
-								  WHERE finance.year=2010 ORDER BY finance.total_liabilities DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year 
+									FROM colleges JOIN finance on colleges.id=finance.id 
+								  	WHERE finance.year=2010 AND
+								  	finance.total_liabilities >= 1000000000
+								  	ORDER BY finance.total_liabilities DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -183,17 +198,28 @@
 			echo 'Total Liability: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Liability' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Liability' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_liabilities'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['total_liabilities'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year FROM colleges JOIN finance on colleges.id=finance.id 
-								  WHERE finance.year=2011 ORDER BY finance.total_liabilities DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year 
+									FROM colleges JOIN finance on colleges.id=finance.id 
+								  	WHERE finance.year=2011 AND
+								  	finance.total_liabilities >= 1000000000
+								  	ORDER BY finance.total_liabilities DESC LIMIT 10");
 			//$sth->execute();
 
 			//$results = $sth->fetchAll();
@@ -201,10 +227,18 @@
 			echo 'Total Liability: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Liability' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Liability' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_liabilities'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['total_liabilities'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -212,11 +246,6 @@
 	}
 
 	class question3 extends page {
-		
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question3();
-		}
 		
 		function question3() {
 			echo $this->menu();
@@ -228,8 +257,11 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year FROM colleges JOIN finance on colleges.id=finance.id 
-								  WHERE finance.year=2010 ORDER BY finance.total_assets DESC LIMIT 18");
+			$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year 
+									FROM colleges JOIN finance on colleges.id=finance.id 
+								  	WHERE finance.year=2010 AND
+								  	finance.total_assets > 1000000000
+								  	ORDER BY finance.total_assets DESC LIMIT 18");
 								  
 			//$sth->execute();
 
@@ -240,17 +272,28 @@
 			echo 'Total Assets: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Assets' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Assets' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_assets'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['total_assets'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year FROM colleges JOIN finance on colleges.id=finance.id 
-								  WHERE finance.year=2011 ORDER BY finance.total_assets DESC LIMIT 18");
+			$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year 
+									FROM colleges JOIN finance on colleges.id=finance.id 
+								  	WHERE finance.year=2011 AND
+								  	finance.total_assets > 1000000000
+								  	ORDER BY finance.total_assets DESC LIMIT 18");
 			//$sth->execute();
 
 			//$results = $sth->fetchAll();
@@ -258,10 +301,18 @@
 			echo 'Total Assets: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Assets' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Assets' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_assets'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['total_assets'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -287,8 +338,11 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year FROM colleges JOIN finance on colleges.id=finance.id 
-								  WHERE year=2010 ORDER BY total_revenues DESC LIMIT 18");
+			$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year 
+									FROM colleges JOIN finance on colleges.id=finance.id 
+								  	WHERE year=2010 AND
+								  	finance.total_revenues > 1000000000
+								  	ORDER BY finance.total_revenues DESC LIMIT 18");
 								  
 			//$sth->execute();
 
@@ -299,17 +353,28 @@
 			echo 'Total Revenue: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Revenues' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Revenues' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_revenues'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['total_revenues'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year FROM colleges JOIN finance on colleges.id=finance.id 
-								  WHERE year=2011 ORDER BY total_revenues DESC LIMIT 18");
+			$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year 
+									FROM colleges JOIN finance on colleges.id=finance.id 
+								  	WHERE year=2011 AND
+								  	finance.total_revenues > 1000000000
+								  	ORDER BY total_revenues DESC LIMIT 18");
 			//$sth->execute();
 
 			//$results = $sth->fetchAll();
@@ -317,10 +382,18 @@
 			echo 'Total Revenue: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Revenues' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Total Revenues' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_revenues'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['total_revenues'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -328,11 +401,6 @@
 	}
 	
 	class question5 extends page {
-		
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question5();
-		}
 		
 		function question5() {
 			echo $this->menu();
@@ -344,9 +412,13 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_revenues, finance.year FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-									JOIN finance ON enrollment_merge.id=finance.id WHERE enrollment_merge.year=2010 and finance.year=2010 
-									ORDER BY (finance.total_revenues/enrollment_merge.enroll_total ) DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_revenues, finance.year,
+									(finance.total_revenues/enrollment_merge.enroll_total) AS total
+									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+									JOIN finance ON enrollment_merge.id=finance.id 
+									WHERE enrollment_merge.year=2010 and finance.year=2010 AND
+									finance.total_revenues > 100000000
+									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -357,18 +429,34 @@
 			echo 'Total Revenue per Student: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Revenues' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . 'Enrollment' . '</th>' . 
+				 '<th>' . 'Revenue' . '</th>' .
+				 '<th>' . 'Revenue per Student' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_revenues'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['total_revenues'] . '</td>' .
+					 '<td>' . $row['total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_revenues, finance.year FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-									JOIN finance ON enrollment_merge.id=finance.id WHERE enrollment_merge.year=2011 and finance.year=2011 
-									ORDER BY (finance.total_revenues/enrollment_merge.enroll_total) DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_revenues, finance.year,
+									(finance.total_revenues/enrollment_merge.enroll_total) AS total 
+									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+									JOIN finance ON enrollment_merge.id=finance.id 
+									WHERE enrollment_merge.year=2011 and finance.year=2011 AND
+									finance.total_revenues > 100000000
+									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -377,10 +465,22 @@
 			echo 'Total Revenue per Student: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Revenues' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . 'Enrollment' . '</th>' . 
+				 '<th>' . 'Revenue' . '</th>' .
+				 '<th>' . 'Revenue per Student' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_revenues'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['total_revenues'] . '</td>' .
+					 '<td>' . $row['total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -404,9 +504,13 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_assets, finance.year FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-									JOIN finance ON enrollment_merge.id=finance.id WHERE enrollment_merge.year=2010 and finance.year=2010 
-									ORDER BY (finance.total_assets/enrollment_merge.enroll_total ) DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_assets, finance.year,
+									(finance.total_assets/enrollment_merge.enroll_total) AS total 
+									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+									JOIN finance ON enrollment_merge.id=finance.id 
+									WHERE enrollment_merge.year=2010 and finance.year=2010 AND
+									finance.total_assets > 100000000
+									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -417,18 +521,34 @@
 			echo 'Total Assets per Student: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Assets' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . 'Enrollment' . '</th>' . 
+				 '<th>' . 'Assets' . '</th>' .
+				 '<th>' . 'Assets per Student' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_assets'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['total_assets'] . '</td>' .
+					 '<td>' . $row['total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_assets, finance.year FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-									JOIN finance ON enrollment_merge.id=finance.id WHERE enrollment_merge.year=2011 and finance.year=2011 
-									ORDER BY (finance.total_assets/enrollment_merge.enroll_total) DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_assets, finance.year,
+									(finance.total_assets/enrollment_merge.enroll_total) AS total 
+									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+									JOIN finance ON enrollment_merge.id=finance.id 
+									WHERE enrollment_merge.year=2011 and finance.year=2011 AND
+									finance.total_assets > 100000000
+									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -437,10 +557,23 @@
 			echo 'Total Assets per Student: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Assets' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<table border=1>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . 'Enrollment' . '</th>' . 
+				 '<th>' . 'Assets' . '</th>' .
+				 '<th>' . 'Assets per Student' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_assets'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['total_assets'] . '</td>' .
+					 '<td>' . $row['total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -465,9 +598,13 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.year FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-									JOIN finance ON enrollment_merge.id=finance.id WHERE enrollment_merge.year=2010 and finance.year=2010 
-									ORDER BY (finance.total_liabilities/enrollment_merge.enroll_total ) DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.year,
+									(finance.total_liabilities/enrollment_merge.enroll_total) AS total 
+									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+									JOIN finance ON enrollment_merge.id=finance.id 
+									WHERE enrollment_merge.year=2010 and finance.year=2010 AND
+									finance.total_liabilities > 10000000
+									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -478,18 +615,34 @@
 			echo 'Total Liabilities per Student: 2010';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Liabilities' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . 'Enrollment' . '</th>' . 
+				 '<th>' . 'Liability' . '</th>' .
+				 '<th>' . 'Liability per Student' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_liabilities'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['total_liabilities'] . '</td>' .
+					 '<td>' . $row['total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.year FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-									JOIN finance ON enrollment_merge.id=finance.id WHERE enrollment_merge.year=2011 and finance.year=2011 
-									ORDER BY (finance.total_liabilities/enrollment_merge.enroll_total) DESC LIMIT 10");
+			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.year,
+									(finance.total_liabilities/enrollment_merge.enroll_total) AS total 
+									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+									JOIN finance ON enrollment_merge.id=finance.id 
+									WHERE enrollment_merge.year=2011 and finance.year=2011 AND
+									finance.total_liabilities > 10000000
+									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -498,10 +651,22 @@
 			echo 'Total Liabilities per Student: 2011';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Total Liabilties' . '</th>' . '<th>' . 'Year' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . 'Enrollment' . '</th>' . 
+				 '<th>' . 'Liability' . '</th>' .
+				 '<th>' . 'Liability per Student' . '</th>' . 
+				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['total_liabilities'] . '</td>' . '<td>' . $row['year'] . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enroll_total'] . '</td>' . 
+					 '<td>' . $row['total_liabilities'] . '</td>' .
+					 '<td>' . $row['total'] . '</td>' . 
+					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -526,10 +691,23 @@
 				} catch (PDOException $e) {
 					echo $e->getMessage();
 			}
-		
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.total_assets, finance.total_revenues, finance.year 
-									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id JOIN finance ON colleges.id=finance.id 
-									WHERE enrollment_merge.year=2010 and finance.year=2010 ORDER BY $choice DESC LIMIT 5");
+			
+			if($choice== "enrollment_merge.enroll_total") {
+				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
+										finance.total_assets, finance.total_revenues, finance.year 
+										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+										JOIN finance ON enrollment_merge.id=finance.id 
+										WHERE enrollment_merge.year=2010 and finance.year=2010 AND
+										enrollment_merge.enroll_total >= 100000
+										ORDER BY $choice DESC LIMIT 5");
+			} else {
+				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
+										finance.total_assets, finance.total_revenues, finance.year 
+										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+										JOIN finance ON enrollment_merge.id=finance.id 
+										WHERE enrollment_merge.year=2010 and finance.year=2010
+										ORDER BY $choice DESC LIMIT 5");
+			}	
 								  
 			//$sth->execute();
 
@@ -540,7 +718,8 @@
 			echo '2010:';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'College' . '</th>' . 
+			echo '<th>' . 'College' . '</th>' .
+				 '<th>' . 'State' . '</th>' .  
 				 '<th>' . '<a href=./colleges.php?page=question8&choice=enrollment_merge.enroll_total>Total Enrollment</a>' . '</th>'. 
 				 '<th>' . '<a href=./colleges.php?page=question8&choice=finance.total_assets>Total Assets</a>' . '</th>' . 
 				 '<th>' . '<a href=./colleges.php?page=question8&choice=finance.total_revenues>Total Revenues</a>' . '</th>' . 
@@ -548,7 +727,8 @@
 				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['name'] . '</td>' . 
+				echo '<td>' . $row['name'] . '</td>' .
+					 '<td>' . $row['state'] . '</td>' .  
 					 '<td>' . $row['enroll_total'] . '</td>' . 
 					 '<td>' . $row['total_assets'] . '</td>' . 
 					 '<td>' . $row['total_revenues'] . '</td>' . 
@@ -558,10 +738,23 @@
 			}
 			echo '</table>';
 			echo '<br><br>';
-			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.total_assets, finance.total_revenues, finance.year 
-									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id JOIN finance ON colleges.id=finance.id 
-									WHERE enrollment_merge.year=2011 and finance.year=2011 ORDER BY $choice DESC LIMIT 5");
+		
+			if($choice== "enrollment_merge.enroll_total") {
+				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
+										finance.total_assets, finance.total_revenues, finance.year 
+										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+										JOIN finance ON enrollment_merge.id=finance.id 
+										WHERE enrollment_merge.year=2011 and finance.year=2011 AND
+										enrollment_merge.enroll_total >= 100000
+										ORDER BY $choice DESC LIMIT 5");
+			} else {
+				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
+										finance.total_assets, finance.total_revenues, finance.year 
+										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
+										JOIN finance ON enrollment_merge.id=finance.id 
+										WHERE enrollment_merge.year=2011 and finance.year=2011
+										ORDER BY $choice DESC LIMIT 5");
+			}	
 								  
 			//$sth->execute();
 
@@ -570,7 +763,8 @@
 			echo '2011:';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'College' . '</th>' . 
+			echo '<th>' . 'College' . '</th>' .
+				 '<th>' . 'State' . '</th>' . 
 				 '<th>' . '<a href=./colleges.php?page=question8&choice=enrollment_merge.enroll_total>Total Enrollment</a>' . '</th>'. 
 				 '<th>' . '<a href=./colleges.php?page=question8&choice=finance.total_assets>Total Assets</a>' . '</th>' . 
 				 '<th>' . '<a href=./colleges.php?page=question8&choice=finance.total_revenues>Total Revenues</a>' . '</th>' . 
@@ -578,7 +772,8 @@
 				 '<th>' . 'Year' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['name'] . '</td>' . 
+				echo '<td>' . $row['name'] . '</td>' .
+					 '<td>' . $row['state'] . '</td>' . 
 					 '<td>' . $row['enroll_total'] . '</td>' . 
 					 '<td>' . $row['total_assets'] . '</td>' . 
 					 '<td>' . $row['total_revenues'] . '</td>' . 
@@ -721,10 +916,16 @@
 			echo 'Create a web page that shows the colleges with the largest percentage increase in total liabilities between 2011 and 2010.';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>' . '<th>' . 'Percentage Increase' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'Percentage Increase' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['diff'] . '%' . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['diff'] . '%' . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -765,10 +966,16 @@
 			echo 'Create a web page that shows the colleges with the largest percentage increase in enrollment between the years of 2011 and 2010.';
 			echo '<br>';
 			echo '<table border=1>';
-			echo '<th>' . 'ID' . '</td>' . '<th>' . 'College' . '</th>' . '<th>' . 'State' . '</th>'. '<th>' . 'Percentage Increase' . '</th>';
+			echo '<th>' . 'ID' . '</td>' . 
+				 '<th>' . 'College' . '</th>' . 
+				 '<th>' . 'State' . '</th>'. 
+				 '<th>' . 'Percentage Increase' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
-				echo '<td>' . $row['id'] . '</td>' . '<td>' . $row['name'] . '</td>' . '<td>' . $row['state'] . '</td>' . '<td>' . $row['diff'] . '%' . '</td>';
+				echo '<td>' . $row['id'] . '</td>' . 
+					 '<td>' . $row['name'] . '</td>' . 
+					 '<td>' . $row['state'] . '</td>' . 
+					 '<td>' . $row['diff'] . '%' . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
