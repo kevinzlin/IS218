@@ -102,16 +102,27 @@
 		function question1() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question1">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
 				} catch (PDOException $e) {
 					echo $e->getMessage();
 			}
+			
 		
 			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year 
 									FROM colleges JOIN enrollment_merge on colleges.id=enrollment_merge.id 
-								  	WHERE enrollment_merge.year=2010 AND 
+								  	WHERE enrollment_merge.year='$year' AND 
 								  	enrollment_merge.enroll_total >= 100000 
 								  	ORDER BY enrollment_merge.enroll_total DESC LIMIT 10");
 								  
@@ -121,7 +132,7 @@
 			
 			echo 'Create a web page that shows the colleges that have the highest enrollment.';
 			echo '<br>';
-			echo 'Total Enrollment: 2010';
+			echo 'Total Enrollment: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -141,7 +152,7 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year 
+			/*$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, enrollment_merge.year 
 									FROM colleges JOIN enrollment_merge on colleges.id=enrollment_merge.id 
 								  	WHERE enrollment_merge.year=2011 AND 
 								  	enrollment_merge.enroll_total >= 100000
@@ -167,7 +178,7 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}
 	}
 	
@@ -176,6 +187,16 @@
 		function question2() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question2">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
@@ -185,7 +206,7 @@
 		
 			$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year 
 									FROM colleges JOIN finance on colleges.id=finance.id 
-								  	WHERE finance.year=2010 AND
+								  	WHERE finance.year='$year' AND
 								  	finance.total_liabilities >= 1000000000
 								  	ORDER BY finance.total_liabilities DESC LIMIT 10");
 								  
@@ -195,7 +216,7 @@
 			
 			echo 'Create a web page that that lists the colleges with the largest amount of total liabilities.';
 			echo '<br>';
-			echo 'Total Liability: 2010';
+			echo 'Total Liability: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -215,7 +236,7 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year 
+			/*$results = $DBH->query("SELECT colleges.*, finance.total_liabilities, finance.year 
 									FROM colleges JOIN finance on colleges.id=finance.id 
 								  	WHERE finance.year=2011 AND
 								  	finance.total_liabilities >= 1000000000
@@ -241,7 +262,7 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}
 	}
 
@@ -250,6 +271,16 @@
 		function question3() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question3">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
@@ -259,7 +290,7 @@
 		
 			$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year 
 									FROM colleges JOIN finance on colleges.id=finance.id 
-								  	WHERE finance.year=2010 AND
+								  	WHERE finance.year='$year' AND
 								  	finance.total_assets > 1000000000
 								  	ORDER BY finance.total_assets DESC LIMIT 18");
 								  
@@ -269,7 +300,7 @@
 			
 			echo 'Create a web page that lists the colleges with the largest amount of net assets.';
 			echo '<br>';
-			echo 'Total Assets: 2010';
+			echo 'Total Assets: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -289,7 +320,7 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year 
+			/*$results = $DBH->query("SELECT colleges.*, finance.total_assets, finance.year 
 									FROM colleges JOIN finance on colleges.id=finance.id 
 								  	WHERE finance.year=2011 AND
 								  	finance.total_assets > 1000000000
@@ -315,7 +346,7 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}		
 	}
 	
@@ -331,6 +362,16 @@
 		function question4() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question4">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
@@ -340,7 +381,7 @@
 		
 			$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year 
 									FROM colleges JOIN finance on colleges.id=finance.id 
-								  	WHERE year=2010 AND
+								  	WHERE year='$year' AND
 								  	finance.total_revenues > 1000000000
 								  	ORDER BY finance.total_revenues DESC LIMIT 18");
 								  
@@ -350,7 +391,7 @@
 			
 			echo 'Create a web page that lists the colleges with the largest amount of total revenues.';
 			echo '<br>';
-			echo 'Total Revenue: 2010';
+			echo 'Total Revenue: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -370,7 +411,7 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year 
+			/*$results = $DBH->query("SELECT colleges.*, finance.total_revenues, finance.year 
 									FROM colleges JOIN finance on colleges.id=finance.id 
 								  	WHERE year=2011 AND
 								  	finance.total_revenues > 1000000000
@@ -396,7 +437,7 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}
 	}
 	
@@ -405,6 +446,16 @@
 		function question5() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question5">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
@@ -416,8 +467,9 @@
 									(finance.total_revenues/enrollment_merge.enroll_total) AS total
 									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
 									JOIN finance ON enrollment_merge.id=finance.id 
-									WHERE enrollment_merge.year=2010 and finance.year=2010 AND
-									finance.total_revenues > 100000000
+									WHERE enrollment_merge.year='$year' and finance.year='$year' AND
+									finance.total_revenues > 100000000 AND
+									enrollment_merge.enroll_total < 7000
 									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
@@ -426,7 +478,7 @@
 			
 			echo 'Create a web page that lists the colleges with the largest amount of total revenues per student.';
 			echo '<br>';
-			echo 'Total Revenue per Student: 2010';
+			echo 'Total Revenue per Student: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -450,12 +502,13 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_revenues, finance.year,
+			/*$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_revenues, finance.year,
 									(finance.total_revenues/enrollment_merge.enroll_total) AS total 
 									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
 									JOIN finance ON enrollment_merge.id=finance.id 
 									WHERE enrollment_merge.year=2011 and finance.year=2011 AND
-									finance.total_revenues > 100000000
+									finance.total_revenues > 100000000 AND
+									enrollment_merge.enroll_total < 7000
 									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
@@ -483,20 +536,25 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}
 	}
 	
 	class question6 extends page {
 		
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question6();
-		}
-		
 		function question6() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question6">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
@@ -508,8 +566,9 @@
 									(finance.total_assets/enrollment_merge.enroll_total) AS total 
 									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
 									JOIN finance ON enrollment_merge.id=finance.id 
-									WHERE enrollment_merge.year=2010 and finance.year=2010 AND
-									finance.total_assets > 100000000
+									WHERE enrollment_merge.year='$year' and finance.year='$year' AND
+									finance.total_assets > 100000000 AND
+									enrollment_merge.enroll_total < 7000
 									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
@@ -542,12 +601,13 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_assets, finance.year,
+			/*$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_assets, finance.year,
 									(finance.total_assets/enrollment_merge.enroll_total) AS total 
 									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
 									JOIN finance ON enrollment_merge.id=finance.id 
 									WHERE enrollment_merge.year=2011 and finance.year=2011 AND
-									finance.total_assets > 100000000
+									finance.total_assets > 100000000 AND
+									enrollment_merge.enroll_total < 7000
 									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
@@ -576,21 +636,26 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}
 		
 	}
 	
 	class question7 extends page {
 	
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question7();
-		}
-		
 		function question7() {
 			echo $this->menu();
 			echo '<br>';
+			echo 'Select Year:';
+			echo '<form method="post" action="./colleges.php?page=question7">
+					    <select name="year">
+					    	<option value=""></option> 
+					        <option value="2010">2010</option>
+							<option value="2011">2011</option>		          
+					    </select>
+					    <INPUT TYPE="submit" name="submit" /><br><br>
+					   </form>';
+			$year = $_POST["year"];
 			try { 
 				# MySQL with PDO_MYSQL
 				$DBH = new PDO('mysql:host=sql.njit.edu;dbname=kl99', 'kl99', 'yemKM0MpN');
@@ -602,8 +667,9 @@
 									(finance.total_liabilities/enrollment_merge.enroll_total) AS total 
 									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
 									JOIN finance ON enrollment_merge.id=finance.id 
-									WHERE enrollment_merge.year=2010 and finance.year=2010 AND
-									finance.total_liabilities > 10000000
+									WHERE enrollment_merge.year='$year' and finance.year='$year' AND
+									finance.total_liabilities > 10000000 AND
+									enrollment_merge.enroll_total < 16000
 									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
@@ -612,7 +678,7 @@
 			
 			echo 'Create a web page that lists the colleges with the largest amount of total liabilities per student.';
 			echo '<br>';
-			echo 'Total Liabilities per Student: 2010';
+			echo 'Total Liabilities per Student: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -636,12 +702,13 @@
 			echo '</table>';
 			echo '<br><br>';
 			
-			$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.year,
+			/*$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, finance.year,
 									(finance.total_liabilities/enrollment_merge.enroll_total) AS total 
 									FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
 									JOIN finance ON enrollment_merge.id=finance.id 
 									WHERE enrollment_merge.year=2011 and finance.year=2011 AND
-									finance.total_liabilities > 10000000
+									finance.total_liabilities > 10000000 AND
+									enrollment_merge.enroll_total < 16000
 									ORDER BY total DESC LIMIT 10");
 								  
 			//$sth->execute();
@@ -669,20 +736,14 @@
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
 			}
-			echo '</table>';
+			echo '</table>';*/
 		}
 	}
 	
 	class question8 extends page {
-	
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question8();
-		}
 		
 		function question8() {
 			$choice = $_REQUEST['choice'];
-			
 			echo $this->menu();
 			echo '<br>';
 			try { 
@@ -696,7 +757,7 @@
 				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
 										finance.total_assets, finance.total_revenues, finance.year 
 										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-										JOIN finance ON enrollment_merge.id=finance.id 
+										JOIN finance ON colleges.id=finance.id 
 										WHERE enrollment_merge.year=2010 and finance.year=2010 AND
 										enrollment_merge.enroll_total >= 100000
 										ORDER BY $choice DESC LIMIT 5");
@@ -704,7 +765,7 @@
 				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
 										finance.total_assets, finance.total_revenues, finance.year 
 										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-										JOIN finance ON enrollment_merge.id=finance.id 
+										JOIN finance ON colleges.id=finance.id 
 										WHERE enrollment_merge.year=2010 and finance.year=2010
 										ORDER BY $choice DESC LIMIT 5");
 			}	
@@ -743,7 +804,7 @@
 				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
 										finance.total_assets, finance.total_revenues, finance.year 
 										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-										JOIN finance ON enrollment_merge.id=finance.id 
+										JOIN finance ON colleges.id=finance.id 
 										WHERE enrollment_merge.year=2011 and finance.year=2011 AND
 										enrollment_merge.enroll_total >= 100000
 										ORDER BY $choice DESC LIMIT 5");
@@ -751,7 +812,7 @@
 				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
 										finance.total_assets, finance.total_revenues, finance.year 
 										FROM colleges JOIN enrollment_merge ON colleges.id=enrollment_merge.id 
-										JOIN finance ON enrollment_merge.id=finance.id 
+										JOIN finance ON colleges.id=finance.id 
 										WHERE enrollment_merge.year=2011 and finance.year=2011
 										ORDER BY $choice DESC LIMIT 5");
 			}	
@@ -885,11 +946,6 @@
 
 	class question10 extends page {
 	
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question7();
-		}
-		
 		function question10() {
 			echo $this->menu();
 			echo '<br>';
@@ -935,11 +991,6 @@
 
 	class question11 extends page {
 	
-		function get() {
-			$this->content .= $this->homepage();
-			$this->content .= $this->question7();
-		}
-		
 		function question11() {
 			echo $this->menu();
 			echo '<br>';
@@ -956,6 +1007,8 @@
 									FROM colleges
 									JOIN enrollment_2010 ON colleges.id = enrollment_2010.id
 									JOIN enrollment_2011 ON enrollment_2010.id = enrollment_2011.id
+									WHERE enrollment_2011.enroll_total <5000
+									AND enrollment_2010.enroll_total <500
 									ORDER BY diff DESC 
 									LIMIT 10");
 								  
