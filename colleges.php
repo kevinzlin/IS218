@@ -292,7 +292,7 @@
 									FROM colleges JOIN finance on colleges.id=finance.id 
 								  	WHERE finance.year='$year' AND
 								  	finance.total_assets > 1000000000
-								  	ORDER BY finance.total_assets DESC LIMIT 18");
+								  	ORDER BY finance.total_assets DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -383,7 +383,7 @@
 									FROM colleges JOIN finance on colleges.id=finance.id 
 								  	WHERE year='$year' AND
 								  	finance.total_revenues > 1000000000
-								  	ORDER BY finance.total_revenues DESC LIMIT 18");
+								  	ORDER BY finance.total_revenues DESC LIMIT 10");
 								  
 			//$sth->execute();
 
@@ -577,7 +577,7 @@
 			
 			echo 'Create a web page that lists the colleges with the largest amount of net assets per student.';
 			echo '<br>';
-			echo 'Total Assets per Student: 2010';
+			echo 'Total Assets per Student: ' . $year;
 			echo '<br>';
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
@@ -776,6 +776,14 @@
 			
 			echo 'Create a table that compares the top 5 colleges based on the statistics above. The columns should be the 5 colleges and the rows should be the statistics.';
 			echo '<br>';
+			if($choice == "enrollment_merge.enroll_total")
+				echo '<h2>Sorted By: Enrollment</h2>';
+			if($choice == "finance.total_assets")
+				echo '<h2>Sorted By: Assets</h2>';
+			if($choice == "finance.total_revenues")
+				echo '<h2>Sorted By: Revenue</h2>';
+			if($choice == "finance.total_liabilities")
+				echo '<h2>Sorted By: Liability</h2>';
 			echo '2010:';
 			echo '<br>';
 			echo '<table border=1>';
@@ -796,9 +804,12 @@
 					 '<td>' . $row['total_liabilities'] . '</td>' .
 					 '<td>' . $row['year'] . '</td>';
 				echo '</tr>';
+				ob_flush();
+				flush();
+				sleep(0);
 			}
 			echo '</table>';
-			echo '<br><br>';
+			echo '<br>';
 		
 			if($choice== "enrollment_merge.enroll_total") {
 				$results = $DBH->query("SELECT colleges.*, enrollment_merge.enroll_total, finance.total_liabilities, 
@@ -956,8 +967,9 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, (
-									((finance_2011.total_liabilities/finance_2010.total_liabilities)-1)*100
+			$results = $DBH->query("SELECT colleges.*, finance_2011.total_liabilities AS liability_2011, 
+									finance_2010.total_liabilities AS liability_2010, 
+									(((finance_2011.total_liabilities/finance_2010.total_liabilities)-1)*100
 									) AS diff
 									FROM colleges
 									JOIN finance_2010 ON colleges.id = finance_2010.id
@@ -974,14 +986,18 @@
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
 				 '<th>' . 'College' . '</th>' . 
-				 '<th>' . 'State' . '</th>' . 
+				 '<th>' . 'State' . '</th>' .
+				 '<th>' . '2010 Liabilities' . '</th>' .
+				 '<th>' . '2011 Liabilities' . '</th>' . 
 				 '<th>' . 'Percentage Increase' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
 				echo '<td>' . $row['id'] . '</td>' . 
 					 '<td>' . $row['name'] . '</td>' . 
-					 '<td>' . $row['state'] . '</td>' . 
-					 '<td>' . $row['diff'] . '%' . '</td>';
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['liability_2010'] . '</td>' .
+					 '<td>' . $row['liability_2011'] . '</td>' .  
+					 '<td>' . round($row['diff'], 1) . '%' . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
@@ -1001,8 +1017,9 @@
 					echo $e->getMessage();
 			}
 		
-			$results = $DBH->query("SELECT colleges.*, (
-									((enrollment_2011.enroll_total/enrollment_2010.enroll_total)-1)*100
+			$results = $DBH->query("SELECT colleges.*, enrollment_2011.enroll_total AS enrollment_2011,
+									enrollment_2010.enroll_total AS enrollment_2010,
+									(((enrollment_2011.enroll_total/enrollment_2010.enroll_total)-1)*100
 									) AS diff
 									FROM colleges
 									JOIN enrollment_2010 ON colleges.id = enrollment_2010.id
@@ -1021,14 +1038,18 @@
 			echo '<table border=1>';
 			echo '<th>' . 'ID' . '</td>' . 
 				 '<th>' . 'College' . '</th>' . 
-				 '<th>' . 'State' . '</th>'. 
+				 '<th>' . 'State' . '</th>'.
+				 '<th>' . '2010 Enrollment' . '</th>'. 
+				 '<th>' . '2011 Enrollment' . '</th>'.  
 				 '<th>' . 'Percentage Increase' . '</th>';
 			foreach($results as $row) {
 				echo '<tr>';
 				echo '<td>' . $row['id'] . '</td>' . 
 					 '<td>' . $row['name'] . '</td>' . 
-					 '<td>' . $row['state'] . '</td>' . 
-					 '<td>' . $row['diff'] . '%' . '</td>';
+					 '<td>' . $row['state'] . '</td>' .
+					 '<td>' . $row['enrollment_2010'] . '</td>' .
+					 '<td>' . $row['enrollment_2011'] . '</td>' .   
+					 '<td>' . round($row['diff'], 1) . '%' . '</td>';
 				echo '</tr>';
 			}
 			echo '</table>';
